@@ -1,4 +1,4 @@
-from ichatalysis.const import ME, REACTION_DICT
+from const import ME, REACTION_DICT
 
 
 def process_raw_msgs(df):

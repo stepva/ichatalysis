@@ -1,10 +1,10 @@
 import time
-from ichatalysis.analysis import top_chats
-from ichatalysis.db_utils import attach_db, close_con, connect_db, query_db
+from analysis import top_chats
+from db_utils import attach_db, close_con, connect_db, query_db
 
-from ichatalysis.const import AB_COPY, AB_PATH, MSG_COPY, MSG_PATH, MSG_QUERY
-from ichatalysis.processing import process_raw_msgs
-from ichatalysis.utils import prepare_files, print_load_status
+from const import AB_COPY, AB_PATH, MSG_COPY, MSG_PATH, MSG_QUERY
+from processing import process_raw_msgs
+from utils import prepare_files, print_load_status
 
 # todo - simple analysis of chosen chat, emojis, games
 

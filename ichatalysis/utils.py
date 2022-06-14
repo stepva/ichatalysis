@@ -2,7 +2,7 @@ import os
 import shutil
 import time
 
-from ichatalysis.const import AB_COPY, MSG_COPY, MSG_PATH, MSG_FILE, AB_PATH, AB_FILE
+from const import AB_COPY, MSG_COPY, MSG_PATH, MSG_FILE, AB_PATH, AB_FILE
 
 
 def copy(path, file_name, copy_name, copy_path=None):

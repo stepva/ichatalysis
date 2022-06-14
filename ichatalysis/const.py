@@ -11,6 +11,7 @@ AB_FILE = "AddressBook-v22.abcddb"
 AB_COPY = "copy_" + AB_FILE
 
 MSG_QUERY = """select c.chat_identifier as thread_id,
+            m.rowid as message_id,
             m.is_from_me, 
             case when m.is_from_me = 1 then m.account
             else h.id end as from_phone_number, 
@@ -20,9 +21,10 @@ MSG_QUERY = """select c.chat_identifier as thread_id,
             datetime((m.date / 1000000000) + 978307200, 'unixepoch', 'localtime') as date,
             m.text, 
             att.mime_type as attachment,
+            att.guid as attachment_id,
             m.associated_message_type,
             c.display_name as room_name,
-            coalesce(nums.ZFULLNUMBER, nums2.ZFULLNUMBER) as number,
+            coalesce(nums.ZFULLNUMBER, nums2.ZFULLNUMBER) as help_number,
             name.ZFIRSTNAME as first_name,
             name.ZLASTNAME as last_name
 

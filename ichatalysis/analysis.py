@@ -38,11 +38,14 @@ def reactions_view(df):
         .reset_index()
         .set_index("name")
     )
-    df_ = df_.pivot(columns="reaction", values="count").fillna(0).astype(int)
-    df_.loc["Total"] = df_.sum()
-    df_ = df_.sort_values(by="Total", axis=1, ascending=False)
-    df_.drop("Total", inplace=True)
-    return df_
+    if not df_.empty:
+        df_ = df_.pivot(columns="reaction", values="count").fillna(0).astype(int)
+        df_.loc["Total"] = df_.sum()
+        df_ = df_.sort_values(by="Total", axis=1, ascending=False)
+        df_.drop("Total", inplace=True)
+        return df_
+    else:
+        return "No reactions stats"
 
 
 def attachments_view(df):
@@ -52,11 +55,14 @@ def attachments_view(df):
         .reset_index()
         .set_index("name")
     )
-    df_ = df_.pivot(columns="attachment", values="count").fillna(0).astype(int)
-    df_.loc["Total"] = df_.sum()
-    df_ = df_.sort_values(by="Total", axis=1, ascending=False)
-    df_.drop("Total", inplace=True)
-    return df_
+    if not df_.empty:
+        df_ = df_.pivot(columns="attachment", values="count").fillna(0).astype(int)
+        df_.loc["Total"] = df_.sum()
+        df_ = df_.sort_values(by="Total", axis=1, ascending=False)
+        df_.drop("Total", inplace=True)
+        return df_
+    else:
+        return "No attachments stats"
 
 
 def emojis_view(df, n):

@@ -1,3 +1,5 @@
+import pandas as pd
+
 from const import ME, REACTION_DICT
 
 
@@ -7,17 +9,13 @@ def process_raw_msgs(df):
         subset=["date", "room_name", "from_phone_number", "attachment_id"], inplace=True
     )
 
-    df["full_name"] = df["first_name"]
-    df.loc[df["last_name"].notnull(), "full_name"] = (
-        df["first_name"] + " " + df["last_name"]
-    )
+    df["name"] = df["first_name"]
+    df.loc[df["last_name"].notnull(), "name"] = df["first_name"] + " " + df["last_name"]
 
     df.loc[df["room_name"].notnull(), "thread_id"] = df["room_name"]
     df.loc[df["room_name"].notnull(), "help_number"] = df["room_name"]
-    df.loc[df["room_name"].isna() & df["full_name"].notnull(), "thread_id"] = df[
-        "full_name"
-    ]
-    df.loc[df["is_from_me"] == 1, "full_name"] = ME
+    df.loc[df["room_name"].isna() & df["name"].notnull(), "thread_id"] = df["name"]
+    df.loc[df["is_from_me"] == 1, "name"] = ME
 
     df["reaction"] = df["associated_message_type"].map(REACTION_DICT)
     df.loc[
@@ -27,8 +25,11 @@ def process_raw_msgs(df):
     df.rename(columns={"thread_id": "chat"}, inplace=True)
     df = check_unmatches_msgs(df)
 
-    df = df[["chat", "service", "date", "text", "attachment", "full_name", "reaction"]]
+    df = df[["chat", "service", "date", "text", "attachment", "name", "reaction"]]
+    df["date"] = pd.to_datetime(df["date"])
 
+    df["simple_chat"] = df["chat"].str.lower()
+    df["simple_chat"] = df["simple_chat"].str.replace(" ", "")
     return df
 
 

@@ -35,7 +35,7 @@ def prepare_files():
     copy(ab_path, AB_FILE, AB_COPY, AB_PATH)
 
 
-def print_load_status(start, df):
+def load_status(start, df):
     print(
         f"{df.shape[0]:,} messages loaded successfully in {round(time.time() - start, 1)} seconds!"
     )

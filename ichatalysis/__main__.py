@@ -6,6 +6,7 @@ from collections import Counter
 from analysis import chat_output, top_chats
 from const import AB_COPY, AB_PATH, MSG_COPY, MSG_PATH, MSG_QUERY
 from db_utils import attach_db, close_con, connect_db, query_db
+from __init__ import VERSION
 from processing import process_raw_msgs
 from utils import prepare_files, load_status
 
@@ -24,9 +25,6 @@ def main(argv=None):
     chats = list(df["chat"].unique())
 
     parser = argparse.ArgumentParser()
-    # parser.add_argument(
-    #     "-V", "-version", "--version", help="Version", action="version", version=version
-    # )
     parser.add_argument("chat", nargs="?", type=str, choices=chats)
     args = parser.parse_args(argv)
 
@@ -35,7 +33,7 @@ def main(argv=None):
         exit()
 
     print("\n************************************")
-    print(f"Welcome to iChatalysis!\n")
+    print(f"Welcome to iChatalysis {VERSION}!\n")
 
     print(
         """To see your Top 10 chats, just type \"top\"
